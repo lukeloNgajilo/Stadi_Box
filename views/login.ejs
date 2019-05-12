@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap4/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/login-form.css">
+
+</head>
+
+<body>
+    <div class="container full-height">
+        <div class="row flex center v-center full-height">
+            <div class="col-8 col-sm-4">
+                <div class="form-box">
+                    <form method="POST" action="/users/login">
+                        <% if(errors) { %>
+                        <% for(var i = 0; i < errors.length; i++) { %>
+                        <div class="alert alert-danger form-row"><%= errors[i].msg %></div>
+                        <% } } %>
+                        <fieldset>
+                            <legend>Sign in</legend><img src="/images/avatar.png" id="avatar" class="avatar round">
+                            <input class="form-control" type="text" id="username" name="username"
+                                placeholder="username">
+                            <input class="form-control" type="password" id="password" name="password"
+                                placeholder="password">
+                            <button class="btn btn-primary btn-block" type="submit">LOGIN </button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="javascripts/jquery-3.2.1.min.js"></script>
+    <script src="stylesheets/bootstrap4/bootstrap.min.js"></script>
+</body>
+
+</html>
