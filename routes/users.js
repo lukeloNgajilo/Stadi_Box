@@ -38,10 +38,11 @@ router.get('/login', function (req, res, next) {
 router.post('/login',
     passport.authenticate('local', {
         failureRedirect: '/users/login',
-        failureFlash: 'Invalid username or password'
+        failureFlash: true
     }),
     function (req, res) {
-        req.flash('success', 'You are now logged in');
+        req.flash('success_msg', 'You are now logged in');
+        req.body.title
         res.redirect('/');
     });
 
@@ -87,13 +88,13 @@ router.post('/register', [check('name').isLength({
         min: 3
     }), check('email').isEmail(), check('username').isLength({
         min: 3
-    }), check('password1').isLength({
+    }), check('password').isLength({
         min: 1
     })
     .custom((value, {
         req
     }) => {
-        if (value !== req.body.password2) {
+        if (value !== req.body.password1) {
             // throw an error if passwords do not match
             throw new Error("Passwords don't match");
         } else {
@@ -104,24 +105,35 @@ router.post('/register', [check('name').isLength({
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // console.log(errors.array(), 'ERROR')
+
+        var name = req.body.name;
+        var email = req.body.email;
+        var username = req.body.username;
+        var password = req.body.password;
+        var password1 = req.body.password1;
+        //console.log(name)
         var err = errors.array();
         console.log(err)
         res.render('register', {
-            errors: err
+            errors: err,
+            name,
+            email,
+            username,
+            password,
+            password1
         });
     } else {
 
         var name = req.body.name;
         var email = req.body.email;
         var username = req.body.username;
-        var password1 = req.body.password1;
+        var password = req.body.password;
 
         var newUser = new User({
             name: name,
             email: email,
             username: username,
-            password: password1,
+            password: password,
             user_role: 'normal_user',
             joinedAt: new Date().getTime()
         });
@@ -130,13 +142,16 @@ router.post('/register', [check('name').isLength({
             if (err) throw err;
             console.log(res);
         })
-
+        req.flash('success_msg', 'You are now registered and you can Log in');
+        res.redirect('/users/register');
     }
+
 });
 
 router.get('/logout', function (req, res) {
     req.logout();
-    req.flash('success', 'You are now logged out');
-    res.redirect('users/login');
+    req.flash('success_msg', 'You are now logged out');
+    res.redirect('/');
 })
+
 module.exports = router;

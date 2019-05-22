@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
 
 //monggose db connection
 mongoose.connect('mongodb://localhost/lifeskills', {
@@ -10,7 +9,6 @@ mongoose.connect('mongodb://localhost/lifeskills', {
 var db = mongoose.connection;
 
 const validator = require("validator");
-//const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 
 
@@ -64,6 +62,8 @@ module.exports.createUser = function (newUser, callback) {
         bcrypt.hash(newUser.password, salt, function (err, hash) {
             newUser.password = hash;
             newUser.save(callback);
+
         });
     });
+
 };

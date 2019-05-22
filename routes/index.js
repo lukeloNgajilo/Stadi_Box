@@ -4,8 +4,13 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', {
-    title: 'Express'
+    errors: {}
   });
+});
+
+/*GET Forum Page */
+router.get('/forum', ensureAuthenticated, function (req, res, next) {
+  res.render('forum_index');
 });
 
 /*GET about page */
@@ -19,15 +24,15 @@ router.get('/contact', function (req, res, next) {
 });
 
 /* GET courses */
-router.get('/courses', ensureAuthenticated, function (req, res, next) {
+router.get('/courses', function (req, res, next) {
   res.render('courses');
 });
 
-function ensureAuthenticated(req, res, next){
-  if(req.isAuthenticated()){
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
     return next();
   }
-res.redirect('/users/login');
+  res.redirect('/users/login');
 }
 
 /* GET course page. */

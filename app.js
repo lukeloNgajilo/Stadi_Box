@@ -37,14 +37,14 @@
    app.use(express.static(path.join(__dirname, 'public')));
 
 
-   //handle Sessions 
+   //Express Sessions 
    app.use(session({
      secret: 'secret',
      saveUninitialized: true,
      resave: true
    }));
 
-   //passport
+   //passport middleware
    app.use(passport.initialize());
    app.use(passport.session());
 
@@ -54,8 +54,7 @@
      validationResult
    } = require('express-validator/check');
 
-   //express-flash messages
-
+   //connect flash
    app.use(require('connect-flash')());
 
    //Global messages
@@ -65,9 +64,12 @@
    });
 
 
-   //Global Variable for checking user login status
-   app.get('*', function (req, res, next) {
+   //Global Variables
+   app.use('*', function (req, res, next) {
      res.locals.user = req.user || null
+     res.locals.success_msg = req.flash('success_msg');
+     res.locals.error_msg = req.flash('error_msg');
+     res.locals.error = req.flash('error');
      next()
    })
 
