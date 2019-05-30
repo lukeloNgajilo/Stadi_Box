@@ -19,6 +19,7 @@
 
    var indexRouter = require('./routes/index');
    var usersRouter = require('./routes/users');
+   var contentsRouter = require('./routes/contents');
 
    // body parser
    app.use(bodyParser.json());
@@ -75,6 +76,7 @@
 
    app.use('/', indexRouter);
    app.use('/users', usersRouter);
+   app.use('/contents', contentsRouter);
 
 
    // catch 404 and forward to error handler

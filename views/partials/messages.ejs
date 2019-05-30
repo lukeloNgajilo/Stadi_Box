@@ -1,6 +1,6 @@
 <% if(errors) { %>
 <% for(var i = 0; i < errors.length; i++) { %>
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
+<div class="alert alert-warning alert-dismissible" role="alert">
     <% if(errors[i].msg == "Invalid value") { %>
     <%= "Invalid " + errors[i].param %>
     <% } else { %>

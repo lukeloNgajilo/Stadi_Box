@@ -28,6 +28,8 @@ router.get('/courses', function (req, res, next) {
   res.render('courses');
 });
 
+
+
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();

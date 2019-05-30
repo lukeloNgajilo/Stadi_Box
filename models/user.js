@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 //monggose db connection
 mongoose.connect('mongodb://localhost/lifeskills', {

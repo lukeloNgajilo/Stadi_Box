@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Dashboard | StadiBox</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/vendor/linearicons/style.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!-- DATA TABLES -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet">
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+</head>
+
+<body>
+    <!-- WRAPPER -->
+    <div id="wrapper">
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="brand">
+                <div class="logo_container">
+                    <a href="#">
+                        <div class="logo_text">Stadi<span style="color:#14bdee">box</span></div>
+                    </a>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="navbar-btn">
+                    <button type="button" class="btn-toggle-fullwidth"><i
+                            class="lnr lnr-arrow-left-circle"></i></button>
+                </div>
+
+                <div id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/assets/img/user.png"
+                                    class="img-circle" alt="Avatar"> <span>Samuel</span> <i
+                                    class="icon-submenu lnr lnr-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+                                <li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- END NAVBAR -->
+        <!-- LEFT SIDEBAR -->
+        <div id="sidebar-nav" class="sidebar">
+            <div class="sidebar-scroll">
+                <nav>
+                    <ul class="nav">
+                        <li><a href="/contents/dashboard" class=""><i class="lnr lnr-home"></i>
+                                <span>Dashboard</span></a></li>
+                        <li><a href="/contents/upload"><i class="lnr lnr-code"></i>
+                                <span>Upload Content</span></a></li>
+                        <li><a href="/contents/tables" class="active"><i class="lnr lnr-dice"></i> <span>Manage
+                                    Contents</span></a></li>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- END LEFT SIDEBAR -->
+        <!-- MAIN -->
+        <div class="main">
+            <!-- MAIN CONTENT -->
+            <div class="main-content">
+                <div class="container-fluid">
+                    <h3 class="page-title">Tables</h3>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- TABLE STRIPED -->
+                            <div class="panel">
+
+                                <div class="panel-body">
+
+                                    <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>File Type</th>
+                                                <th>Topic</th>
+                                                <th>Grade</th>
+                                                <th>Date Created</th>
+                                                <th>Uploaded By</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <% for(var i = 0; i < list.length; i++) { %>
+                                            <tr>
+                                                <td><%= list[i].title %></td>
+                                                <td><%= list[i].fileType %></td>
+                                                <td><%= list[i].topic %></td>
+                                                <td><%= list[i].grade %></td>
+                                                <td><%= list[i].createdAt %></td>
+                                                <td><%= list[i].uploaderName %></td>
+                                                <td><a href="/contents/<%= list[i]._id %>"><i
+                                                            class="fa me fa-pencil  fa " aria-hidden="true"></i></a>
+                                                    <a href="/contents/delete/<%= list[i]._id %>"><i
+                                                            class="fa me fa-trash fa " aria-hidden="true"></i></a>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+
+                                        </tbody>
+
+
+                                </div>
+                            </div>
+                            <!-- END TABLE STRIPED -->
+                        </div>
+
+                    </div>
+                </div>
+                <!-- END MAIN CONTENT -->
+            </div>
+            <!-- END MAIN -->
+            <div class="clearfix"></div>
+            <footer>
+            </footer>
+        </div>
+        <!-- END WRAPPER -->
+        <!-- Javascript -->
+        <script src="/assets/vendor/jquery/jquery.min.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="/assets/scripts/klorofil-common.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
+        <!-- Javascript Datatables-->
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#datatable').DataTable({
+
+                    columnDefs: [{
+                        orderable: false,
+                        targets: -1
+                    }],
+                    select: {
+                        style: 'os',
+                        selector: 'td:first-child'
+                    }
+                });
+            });
+        </script>
+</body>
+
+</html>
