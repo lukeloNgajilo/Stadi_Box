@@ -6,6 +6,7 @@ const path = require('path');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
+var Download = require('../models/download');
 var moment = require('moment');
 const fs = require('fs')
 
@@ -76,14 +77,14 @@ const upload = multer({
 // }
 
 // GET dashboard page
-router.get('/dashboard', ensureAuthenticated, function (req, res, next) {
+router.get('/dashboard', ensureAuthenticated1, function (req, res, next) {
 
     res.render('dashboard/dashboard_main');
 
 });
 
 // GET tables page
-router.get('/tables', ensureAuthenticated, function (req, res, next) {
+router.get('/tables', ensureAuthenticated1, function (req, res, next) {
 
     Content.getMaterials(function (err, result) {
         if (!err) {
@@ -101,7 +102,7 @@ router.get('/tables', ensureAuthenticated, function (req, res, next) {
 
 
 
-router.get('/upload', ensureAuthenticated, function (req, res, next) {
+router.get('/upload', ensureAuthenticated1, function (req, res, next) {
 
     res.render('dashboard/upload', {
         msg: '',
@@ -210,23 +211,7 @@ router.post('/upload', function (req, res) {
 });
 
 
-//check if authenticated
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect('/contents/login_dashboard');
-}
 
-//log in to dashboard
-
-router.get('/login_dashboard', function (req, res, next) {
-
-    res.render('dashboard/login_dashboard', {
-        errors: {}
-    });
-
-});
 
 
 router.post('/login',
@@ -275,6 +260,98 @@ passport.deserializeUser(function (id, done) {
     User.getUserById(id, function (err, user) {
         done(err, user);
     });
+});
+
+//check if authenticated
+function ensureAuthenticated1(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/contents/login_dashboard');
+}
+
+//log in to dashboard
+
+router.get('/login_dashboard', function (req, res, next) {
+
+    res.render('dashboard/login_dashboard', {
+        errors: {}
+    });
+
+});
+
+
+//get course
+router.get('/download/:id', ensureAuthenticated, (req, res, next) => {
+
+    Content.findById(req.params.id, (err, content) => {
+        if (!err) {
+            var name = content.fileURL.substring(15, content.fileURL.length);
+            var downloadURL = `/uploads/${name}`
+
+            console.log(downloadURL);
+            res.render('download', {
+                downloadURL: downloadURL
+            });
+            res.render('download');
+        }
+
+    });
+
+
+
+
+
+
+    
+});
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/users/login');
+}
+
+
+//get course
+router.get('/course/:id', (req, res, next) => {
+
+    console.log('Course ID', req.params.id);
+
+    Content.findById(req.params.id, (err, content) => {
+
+        if (!err) {
+
+            console.log('Course DETAILS', content);
+            res.render('course', {
+                content: content
+            });
+        }
+    });
+});
+
+
+//get courses
+
+router.get('/courses/:page', (req, res, next) => {
+    let perPage = 6;
+    let page = req.params.page || 1;
+
+    Content
+        .find({}) // finding all documents
+        .skip((perPage * page) - perPage) // in the first page the value of the skip is 0
+        .limit(perPage) // output just 6 items
+        .exec((err, contents) => {
+            Content.count((err, count) => { // count to calculate the number of pages
+                if (err) return next(err);
+                res.render('courses', {
+                    contents,
+                    current: page,
+                    pages: Math.ceil(count / perPage)
+                });
+            });
+        });
 });
 
 //get for updating content

@@ -52,7 +52,7 @@
 
 										<ul class="nav navbar-nav navbar-right ml-auto">
 											<li class="nav-item">
-												<a class="dropdown-toggle-split" href="users/logout">Log Out </a>
+												<a class="dropdown-toggle-split" href="/users/logout">Log Out </a>
 											</li>
 										</ul>
 
@@ -212,7 +212,7 @@
 					<!-- Course -->
 					<div class="col-lg-8">
 
-						<div class="course_title">Thankful Hearts</div>
+						<div class="course_title"><%= content.title %></div>
 						<div class="course_container">
 							<div
 								class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
@@ -223,53 +223,45 @@
 									<div class="course_info_text"><a href="#">Group</a></div>
 								</div>
 
-								<!-- Course Info Item -->
-								<div class="course_info_item">
-									<div class="course_info_title">Reviews:</div>
-									<div class="rating_r rating_r_4"><i></i><i></i><i></i><i></i><i></i></div>
-								</div>
+
 
 								<!-- Course Info Item -->
 								<div class="course_info_item">
 									<div class="course_info_title">Categories:</div>
-									<div class="course_info_text"><a href="#">Grade 1</a></div>
+									<div class="course_info_text"><a href="#">Grade <%= content.grade %></a></div>
 								</div>
 
 							</div>
 
 							<!-- Course Image -->
-							<div class="course_image"><img src="images/courses/course_4.jpg" alt=""></div>
+							<div class="course_image"><img
+									src="/uploads/<%= content.coverimageURL.substring(15,content.coverimageURL.length) %>"
+									alt=""></div>
 
 							<!-- Course Tabs -->
 							<div class="course_tabs_container">
 								<div class="tabs d-flex flex-row align-items-center justify-content-start">
 									<div class="tab active">description</div>
-									<div class="tab">curriculum</div>
-									<div class="tab">reviews</div>
+
 								</div>
 								<div class="tab_panels">
 
 									<!-- Description -->
 									<div class="tab_panel active">
-										<div class="tab_panel_title">Thankful heart</div>
+										<div class="tab_panel_title"><%= content.title %></div>
 										<div class="tab_panel_content">
 											<div class="tab_panel_text">
-												<p>Having gratitude is an important part of being kind and empathic.
-													Share your gratitude for each other with a simple, relaxing art
-													activity. Find some crayons and markers and sit with your child to
-													practice showing thanks. On each heart, write things you are
-													thankful for, or things you love about each other. When you’re done,
-													encourage your little one to decorate the hearts exactly how they’d
-													like.
-
-													Put the “Thankful Hearts” on the refrigerator for everyone to adore,
-													or cut them out to give each other. </p>
+												<p> <%= content.textDescription %> </p>
 											</div>
 											<% if (user) { %>
 											<div class="tab_panel_text">
-												<p><a href="materials/hearts.pdf">Click here to download the content
-														....</a></p>
+												<p><a href="/contents/download/<%= content._id %>">Click here to proceed
+														to downloading
+														content....</a></p>
 											</div>
+											<%  } else { %>
+											<div class="add_comment_text">You must be <a href="/users/login">logged</a>
+												in to download the material</div>
 											<%  } %>
 											<div class="tab_panel_title">FAQ</div>
 
@@ -468,25 +460,20 @@
 									<!-- Features -->
 									<div class="feature_list">
 
-										<!-- Feature -->
-										<div class="feature d-flex flex-row align-items-center justify-content-start">
-											<div class="feature_title"><i class="fa fa-clock-o"
-													aria-hidden="true"></i><span>Duration:</span></div>
-											<div class="feature_text ml-auto">10 min+</div>
-										</div>
+
 
 										<!-- Feature -->
 										<div class="feature d-flex flex-row align-items-center justify-content-start">
 											<div class="feature_title"><i class="fa fa-file-text-o"
 													aria-hidden="true"></i><span>Content Type:</span></div>
-											<div class="feature_text ml-auto">.pdf</div>
+											<div class="feature_text ml-auto"><%= content.fileType %></div>
 										</div>
 
 										<!-- Feature -->
 										<div class="feature d-flex flex-row align-items-center justify-content-start">
 											<div class="feature_title"><i class="fa fa-users"
 													aria-hidden="true"></i><span>Grade</span></div>
-											<div class="feature_text ml-auto">1 - 2</div>
+											<div class="feature_text ml-auto"><%= content.grade %></div>
 										</div>
 
 									</div>

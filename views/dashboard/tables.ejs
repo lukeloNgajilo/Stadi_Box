@@ -113,7 +113,8 @@
                                                 <td><%= list[i].uploaderName %></td>
                                                 <td><a href="/contents/<%= list[i]._id %>"><i
                                                             class="fa me fa-pencil  fa " aria-hidden="true"></i></a>
-                                                    <a href="/contents/delete/<%= list[i]._id %>"><i
+                                                    <a href="/contents/delete/<%= list[i]._id %>"
+                                                        onclick="confirm('Are you sure you want to delete this record ?');"><i
                                                             class="fa me fa-trash fa " aria-hidden="true"></i></a>
                                                 </td>
                                             </tr>
