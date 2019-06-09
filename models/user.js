@@ -29,6 +29,15 @@ var Userschema = new mongoose.Schema({
     name: {
         type: String
     },
+    school: {
+        type: String
+    },
+    district: {
+        type: String
+    },
+    region: {
+        type: String
+    },
     user_role: {
         type: String
     },

@@ -12,9 +12,10 @@
 	<link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
 	<link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
 	<link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/animate.css">
+	<link rel="stylesheet" href="/assets/vendor/linearicons/style.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/main_styles.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/responsive.css">
-	<link rel="stylesheet" type="text/css" href="/stylesheets/main_styles.css">
+
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -55,8 +56,21 @@
 										<% if (user) { %>
 
 										<ul class="nav navbar-nav navbar-right ml-auto">
-											<li class="nav-item">
-												<a class="dropdown-toggle-split" href="users/logout">Log Out </a>
+
+
+											<li class="dropdown">
+												<a href="#" class="dropdown" data-toggle="dropdown"><img
+														src="/assets/img/user.png" class="img-circle" alt="Avatar">
+													<span><%= user.username %></span> <i
+														class="icon-submenu lnr lnr-chevron-down"></i></a>
+												<ul class="dropdown-menu">
+													<li><a href="#"><i class="lnr lnr-user"></i> <span>My
+																Profile</span></a></li>
+													<li><a href="/users/logout"><i class="lnr lnr-exit"></i>
+															<span>Logout</span></a></li>
+												</ul>
+											</li>
+
 											</li>
 										</ul>
 

@@ -67,9 +67,9 @@
                                 <span>Dashboard</span></a></li>
                         <li><a href="/contents/upload"><i class="lnr lnr-upload"></i>
                                 <span>Upload Content</span></a></li>
-                        <li><a href="/contents/tables" class="active"><i class="lnr lnr-dice"></i> <span>Manage
+                        <li><a href="/contents/tables"><i class="lnr lnr-dice"></i> <span>Manage
                                     Contents</span></a></li>
-                        <li><a href="/contents/downloads"><i class="lnr lnr-enter-down"></i> <span>View
+                        <li><a href="/contents/downloads" class="active"><i class="lnr lnr-enter-down"></i> <span>View
                                     Downloads</span></a></li>
                     </ul>
                 </nav>
@@ -81,7 +81,7 @@
             <!-- MAIN CONTENT -->
             <div class="main-content">
                 <div class="container-fluid">
-                    <h3 class="page-title">Contents Table</h3>
+                    <h3 class="page-title">Downloads Table</h3>
 
                     <div class="row">
                         <div class="col-md-12">
@@ -93,31 +93,20 @@
                                     <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>Title</th>
-                                                <th>File Type</th>
-                                                <th>Topic</th>
-                                                <th>Grade</th>
-                                                <th>Date Created</th>
-                                                <th>Uploaded By</th>
-                                                <th></th>
+                                                <th>Content Name</th>
+                                                <th>Downloader Name</th>
+                                                <th>Downloader SChool</th>
+                                                <th>Date FIle Downloaded</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 
                                             <% for(var i = 0; i < list.length; i++) { %>
                                             <tr>
-                                                <td><%= list[i].title %></td>
-                                                <td><%= list[i].fileType %></td>
-                                                <td><%= list[i].topic %></td>
-                                                <td><%= list[i].grade %></td>
-                                                <td><%= list[i].createdAt %></td>
-                                                <td><%= list[i].uploaderName %></td>
-                                                <td><a href="/contents/<%= list[i]._id %>"><i
-                                                            class="fa me fa-pencil  fa " aria-hidden="true"></i></a>
-                                                    <a href="/contents/delete/<%= list[i]._id %>"
-                                                        onclick="confirm('Are you sure you want to delete this record ?');"><i
-                                                            class="fa me fa-trash fa " aria-hidden="true"></i></a>
-                                                </td>
+                                                <td><%= list[i].contentName %></td>
+                                                <td><%= list[i].downloaderName %></td>
+                                                <td><%= list[i].downloaderSchool %></td>
+                                                <td><%= list[i].date %></td>
                                             </tr>
                                             <% } %>
 

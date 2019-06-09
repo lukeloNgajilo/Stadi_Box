@@ -20,6 +20,9 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+	<link rel="stylesheet" href="/assets/vendor/linearicons/style.css">
 </head>
 
 <body>
@@ -56,8 +59,18 @@
 										<% if (user) { %>
 
 										<ul class="nav navbar-nav navbar-right ml-auto">
-											<li class="nav-item">
-												<a class="dropdown-toggle-split" href="users/logout">Log Out </a>
+
+											<li class="dropdown">
+												<a href="#" class="dropdown" data-toggle="dropdown"><img
+														src="/assets/img/user.png" class="img-circle" alt="Avatar">
+													<span><%= user.username %></span> <i
+														class="icon-submenu lnr lnr-chevron-down"></i></a>
+												<ul class="dropdown-menu">
+													<li><a href="#"><i class="lnr lnr-user"></i> <span>My
+																Profile</span></a></li>
+													<li><a href="/users/logout"><i class="lnr lnr-exit"></i>
+															<span>Logout</span></a></li>
+												</ul>
 											</li>
 										</ul>
 
@@ -242,7 +255,9 @@
 												alt="">
 										</div>
 										<div class="course_body">
-											<h3 class="course_title"><a href="/contents/course/<%= contents[i]._id %>"><%= contents[i].title %></a></h3>
+											<h3 class="course_title"><a
+													href="/contents/course/<%= contents[i]._id %>"><%= contents[i].title %></a>
+											</h3>
 
 											<div class="course_text">
 												<p><%= contents[i].textSummary %></p>
@@ -251,7 +266,8 @@
 										<div class="course_footer">
 											<div
 												class="course_footer_content d-flex flex-row align-items-center justify-content-start ">
-												<div class="footer_content_courses"><a href="/contents/course/<%= contents[i]._id %>"><img
+												<div class="footer_content_courses"><a
+														href="/contents/course/<%= contents[i]._id %>"><img
 															src="/images/preview.png" alt=""></a> </div>
 											</div>
 										</div>

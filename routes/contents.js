@@ -79,35 +79,59 @@ const upload = multer({
 // GET dashboard page
 router.get('/dashboard', ensureAuthenticated1, function (req, res, next) {
 
-    res.render('dashboard/dashboard_main');
+    var user = req.user;
+    console.log(user)
+    res.render('dashboard/dashboard_main', {
+        user: user
+    });
 
 });
 
 // GET tables page
 router.get('/tables', ensureAuthenticated1, function (req, res, next) {
 
+    var user = req.user;
     Content.getMaterials(function (err, result) {
         if (!err) {
             console.log(result);
             res.render('dashboard/tables', {
-                list: result
+                list: result,
+                user: user
             });
         } else {
             console.log(err);
         }
 
     });
+});
 
+//GET Downloads
+router.get('/downloads', ensureAuthenticated1, function (req, res, next) {
+
+    var user = req.user;
+    Download.getDownloads(function (err, result) {
+        if (!err) {
+            console.log(result);
+            res.render('dashboard/downloads', {
+                list: result,
+                user: user
+            });
+        } else {
+            console.log(err);
+        }
+
+    });
 });
 
 
 
 router.get('/upload', ensureAuthenticated1, function (req, res, next) {
-
+    var user = req.user;
     res.render('dashboard/upload', {
         msg: '',
         viewTitle: 'Uploading Content',
-        data: {}
+        data: {},
+        user: user
     })
 });
 
@@ -280,6 +304,13 @@ router.get('/login_dashboard', function (req, res, next) {
 
 });
 
+//log out of dashboard
+router.get('/logout', function (req, res) {
+    req.logout();
+    req.flash('success_msg', 'You are now logged out');
+    res.redirect('/contents/login_dashboard');
+})
+
 
 //get course
 router.get('/download/:id', ensureAuthenticated, (req, res, next) => {
@@ -294,16 +325,31 @@ router.get('/download/:id', ensureAuthenticated, (req, res, next) => {
                 downloadURL: downloadURL
             });
             res.render('download');
+
+            var newDownload = new Download({
+                contentId: content._id,
+                downloaderId: req.user._id,
+                contentName: content.title,
+                downloaderName: req.user.name,
+                downloaderSchool: req.user.school,
+                date: moment().format("MMM Do YY")
+            });
+
+            Download.createDownload(newDownload, function (err, res) {
+                if (err) throw err;
+                console.log(res);
+            })
+
         }
 
     });
 
 
 
+    //console.log(req.user)
 
+    // User.findById(req.user._id)
 
-
-    
 });
 
 function ensureAuthenticated(req, res, next) {

@@ -109,6 +109,9 @@ router.post('/register', [check('name').isLength({
         var name = req.body.name;
         var email = req.body.email;
         var username = req.body.username;
+        var school = req.body.school;
+        var district = req.body.ditrict;
+        var region = req.body.region;
         var password = req.body.password;
         var password1 = req.body.password1;
         //console.log(name)
@@ -119,6 +122,9 @@ router.post('/register', [check('name').isLength({
             name,
             email,
             username,
+            school,
+            district,
+            region,
             password,
             password1
         });
@@ -127,12 +133,18 @@ router.post('/register', [check('name').isLength({
         var name = req.body.name;
         var email = req.body.email;
         var username = req.body.username;
+        var school = req.body.school;
+        var district = req.body.district;
+        var region = req.body.region;
         var password = req.body.password;
 
         var newUser = new User({
             name: name,
             email: email,
             username: username,
+            school: school,
+            ditrict: district,
+            region: region,
             password: password,
             user_role: 'normal_user',
             joinedAt: new Date().getTime()

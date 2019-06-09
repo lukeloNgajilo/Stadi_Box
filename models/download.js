@@ -9,7 +9,6 @@ mongoose.connect('mongodb://localhost/lifeskills', {
 
 var db = mongoose.connection;
 
-const validator = require("validator");
 const _ = require("lodash");
 
 
@@ -29,10 +28,27 @@ var Downloadschema = new mongoose.Schema({
     downloaderSchool: {
         type: String
     },
-    Date: {
+    date: {
         type: String
     }
 });
 
 
 var Download = module.exports = mongoose.model('Download', Downloadschema);
+
+module.exports.createDownload = function (newDownload, callback) {
+
+    newDownload.save(callback);
+
+};
+
+module.exports.getDownloads = function (callback) {
+    Download.find(function (err, res) {
+        if (!err) {
+            callback(undefined, res);
+        } else {
+            console.log('error in retrieving downloads');
+            callback(err);
+        }
+    });
+};

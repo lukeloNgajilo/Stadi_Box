@@ -21,10 +21,40 @@
                 <h1>Registration Form</h1>
                 <% include ./partials/messages %>
                 <div class="form-row form-group">
-                    <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">Name
+                    <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">Full Name
                         </label></div>
                     <div class="col-sm-6 input-column"><input name="name" class="form-control" type="text"
                             value="<%= typeof name != 'undefined' ? name : '' %>"></div>
+                </div>
+
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">User Name
+                        </label></div>
+                    <div class="col-sm-6 input-column"><input name="username" class="form-control" type="text"
+                            value="<%= typeof username != 'undefined' ? username : '' %>"></div>
+                </div>
+
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">School Name
+                        </label></div>
+                    <div class="col-sm-6 input-column"><input name="school" class="form-control" type="text"
+                            value="<%= typeof school != 'undefined' ? school : '' %>"></div>
+                </div>
+
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">District
+                            where school is located
+                        </label></div>
+                    <div class="col-sm-6 input-column"><input name="district" class="form-control" type="text"
+                            value="<%= typeof district != 'undefined' ? district : '' %>"></div>
+                </div>
+
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">Region where
+                            school is located
+                        </label></div>
+                    <div class="col-sm-6 input-column"><input name="region" class="form-control" type="text"
+                            value="<%= typeof region != 'undefined' ? region : '' %>"></div>
                 </div>
 
                 <div class="form-row form-group">
@@ -35,12 +65,7 @@
                 </div>
 
 
-                <div class="form-row form-group">
-                    <div class="col-sm-4 label-column"><label class="col-form-label" for="name-input-field">User Name
-                        </label></div>
-                    <div class="col-sm-6 input-column"><input name="username" class="form-control" type="text"
-                            value="<%= typeof username != 'undefined' ? username : '' %>"></div>
-                </div>
+
 
                 <div class="form-row form-group">
                     <div class="col-sm-4 label-column"><label class="col-form-label"
