@@ -29,6 +29,9 @@ var Userschema = new mongoose.Schema({
     name: {
         type: String
     },
+    phoneNumber: {
+        type: Number
+    },
     school: {
         type: String
     },
@@ -42,7 +45,7 @@ var Userschema = new mongoose.Schema({
         type: String
     },
     joinedAt: {
-        type: Number
+        type: String
     }
 });
 

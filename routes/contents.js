@@ -105,7 +105,7 @@ router.get('/tables', ensureAuthenticated1, function (req, res, next) {
     });
 });
 
-//GET Downloads
+//GET Downloads 
 router.get('/downloads', ensureAuthenticated1, function (req, res, next) {
 
     var user = req.user;
@@ -120,6 +120,22 @@ router.get('/downloads', ensureAuthenticated1, function (req, res, next) {
             console.log(err);
         }
 
+    });
+});
+
+//GET Users
+router.get('/users', ensureAuthenticated1, function (req, res, next) {
+
+    var user = req.user;
+    User.find(function (err, result) {
+        if (!err) {
+            console.log(res);
+            res.render('dashboard/users', {
+                list: result,
+                user: user
+            });
+
+        }
     });
 });
 
@@ -416,6 +432,7 @@ router.get('/:id', function (req, res) {
     });
 
 });
+
 
 router.get('/delete/:id', function (req, res) {
     Content.findById(req.params.id, function (err, content) {

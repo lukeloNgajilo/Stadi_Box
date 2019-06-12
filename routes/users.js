@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require('../models/user');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var moment = require('moment');
 
 //validator
 const {
@@ -88,6 +89,9 @@ router.post('/register', [check('name').isLength({
         min: 3
     }), check('email').isEmail(), check('username').isLength({
         min: 3
+    }),
+    check('phonenumber').isNumeric(), check('username').isLength({
+        min: 3
     }), check('password').isLength({
         min: 1
     })
@@ -110,6 +114,7 @@ router.post('/register', [check('name').isLength({
         var email = req.body.email;
         var username = req.body.username;
         var school = req.body.school;
+        var phonenumber = req.body.phonenumber;
         var district = req.body.ditrict;
         var region = req.body.region;
         var password = req.body.password;
@@ -121,6 +126,7 @@ router.post('/register', [check('name').isLength({
             errors: err,
             name,
             email,
+            phonenumber,
             username,
             school,
             district,
@@ -133,6 +139,7 @@ router.post('/register', [check('name').isLength({
         var name = req.body.name;
         var email = req.body.email;
         var username = req.body.username;
+        var phonenumber = req.body.phonenumber;
         var school = req.body.school;
         var district = req.body.district;
         var region = req.body.region;
@@ -143,11 +150,12 @@ router.post('/register', [check('name').isLength({
             email: email,
             username: username,
             school: school,
-            ditrict: district,
+            phoneNumber: phonenumber,
+            district: district,
             region: region,
             password: password,
             user_role: 'normal_user',
-            joinedAt: new Date().getTime()
+            joinedAt: moment().format("MMM Do YY")
         });
 
         User.createUser(newUser, function (err, res) {
@@ -165,5 +173,15 @@ router.get('/logout', function (req, res) {
     req.flash('success_msg', 'You are now logged out');
     res.redirect('/');
 })
+
+router.get('/delete/:id', function (req, res) {
+
+    User.findByIdAndRemove(req.params.id, (err, user) => {
+        if (!err) {
+            res.redirect('/contents/users');
+            console.log('Deleted Record', user);
+        }
+    });
+});
 
 module.exports = router;
