@@ -8,7 +8,7 @@ mongoose.connect('mongodb://localhost/lifeskills', {
 
 var db = mongoose.connection;
 
-var Userschema = new mongoose.Schema({
+var Contentschema = new mongoose.Schema({
     title: {
         type: String
     },
@@ -51,7 +51,7 @@ var Userschema = new mongoose.Schema({
     }
 });
 
-var Content = module.exports = mongoose.model('Content', Userschema);
+var Content = module.exports = mongoose.model('Content', Contentschema);
 
 module.exports.createContent = function (newContent, callback) {
 
