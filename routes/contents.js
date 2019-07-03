@@ -93,7 +93,7 @@ router.get('/tables', ensureAuthenticated1, function (req, res, next) {
     var user = req.user;
     Content.getMaterials(function (err, result) {
         if (!err) {
-            console.log(result);
+            //console.log(result);
             res.render('dashboard/tables', {
                 list: result,
                 user: user
@@ -397,23 +397,70 @@ router.get('/course/:id', (req, res, next) => {
 //get courses
 
 router.get('/courses/:page', (req, res, next) => {
+
+    //console.log(req.query)
+    var noMatch = null;
+    var x = [1, 2]
     let perPage = 6;
     let page = req.params.page || 1;
 
-    Content
-        .find({}) // finding all documents
-        .skip((perPage * page) - perPage) // in the first page the value of the skip is 0
-        .limit(perPage) // output just 6 items
-        .exec((err, contents) => {
-            Content.count((err, count) => { // count to calculate the number of pages
-                if (err) return next(err);
-                res.render('courses', {
-                    contents,
-                    current: page,
-                    pages: Math.ceil(count / perPage)
+    if (req.query.category == 'Grade 1') {
+        x = [1]
+    } else if (req.query.category == 'Grade 2') {
+        x = [2]
+    } else if (req.query.category == 'Pre - Primary') {
+        x = [0]
+    }
+
+
+    if (req.query.search) {
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        Content
+            .find({
+                title: regex,
+                grade: {
+                    $in: x
+                }
+            }) // finding all documents
+            .skip((perPage * page) - perPage) // in the first page the value of the skip is 0
+            .limit(perPage) // output just 6 items
+            .exec((err, contents) => {
+                Content.count((err, count) => { // count to calculate the number of pages
+                    if (err) {
+                        return next(err);
+                    } else {
+                        if (contents.length < 1) {
+                            noMatch = "Nothing Found ! ......."
+                        }
+                        res.render('courses', {
+                            contents,
+                            noMatch,
+                            current: page,
+                            pages: Math.ceil(count / perPage)
+                        });
+                    }
+
                 });
             });
-        });
+    } else {
+        Content
+            .find({}) // finding all documents
+            .skip((perPage * page) - perPage) // in the first page the value of the skip is 0
+            .limit(perPage) // output just 6 items
+            .exec((err, contents) => {
+                Content.count((err, count) => { // count to calculate the number of pages
+                    if (err) return next(err);
+                    res.render('courses', {
+                        contents,
+                        noMatch,
+                        current: page,
+                        pages: Math.ceil(count / perPage)
+                    });
+                });
+            });
+
+    }
+
 });
 
 //get for updating content
@@ -465,6 +512,8 @@ router.get('/delete/:id', function (req, res) {
     });
 });
 
-
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = router;

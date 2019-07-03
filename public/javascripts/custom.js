@@ -14,8 +14,7 @@
 
 ******************************/
 
-$(document).ready(function()
-{
+$(document).ready(function () {
 	"use strict";
 
 	/* 
@@ -32,13 +31,11 @@ $(document).ready(function()
 
 	setHeader();
 
-	$(window).on('resize', function()
-	{
+	$(window).on('resize', function () {
 		setHeader();
 	});
 
-	$(document).on('scroll', function()
-	{
+	$(document).on('scroll', function () {
 		setHeader();
 	});
 
@@ -53,14 +50,10 @@ $(document).ready(function()
 
 	*/
 
-	function setHeader()
-	{
-		if($(window).scrollTop() > 100)
-		{
+	function setHeader() {
+		if ($(window).scrollTop() > 100) {
 			header.addClass('scrolled');
-		}
-		else
-		{
+		} else {
 			header.removeClass('scrolled');
 		}
 	}
@@ -71,31 +64,20 @@ $(document).ready(function()
 
 	*/
 
-	function initMenu()
-	{
-		if($('.menu').length)
-		{
+	function initMenu() {
+		if ($('.menu').length) {
 			var menu = $('.menu');
-			if($('.hamburger').length)
-			{
-				burger.on('click', function()
-				{
-					if(menuActive)
-					{
+			if ($('.hamburger').length) {
+				burger.on('click', function () {
+					if (menuActive) {
 						closeMenu();
-					}
-					else
-					{
+					} else {
 						openMenu();
 
-						$(document).one('click', function cls(e)
-						{
-							if($(e.target).hasClass('menu_mm'))
-							{
+						$(document).one('click', function cls(e) {
+							if ($(e.target).hasClass('menu_mm')) {
 								$(document).one('click', cls);
-							}
-							else
-							{
+							} else {
 								closeMenu();
 							}
 						});
@@ -105,14 +87,12 @@ $(document).ready(function()
 		}
 	}
 
-	function openMenu()
-	{
+	function openMenu() {
 		menu.addClass('active');
 		menuActive = true;
 	}
 
-	function closeMenu()
-	{
+	function closeMenu() {
 		menu.removeClass('active');
 		menuActive = false;
 	}
@@ -123,14 +103,10 @@ $(document).ready(function()
 
 	*/
 
-	function initHeaderSearch()
-	{
-		if($('.search_button').length)
-		{
-			$('.search_button').on('click', function()
-			{
-				if($('.header_search_container').length)
-				{
+	function initHeaderSearch() {
+		if ($('.search_button').length) {
+			$('.search_button').on('click', function () {
+				if ($('.header_search_container').length) {
 					$('.header_search_container').toggleClass('active');
 				}
 			});
@@ -143,35 +119,28 @@ $(document).ready(function()
 
 	*/
 
-	function initHomeSlider()
-	{
-		if($('.home_slider').length)
-		{
+	function initHomeSlider() {
+		if ($('.home_slider').length) {
 			var homeSlider = $('.home_slider');
-			homeSlider.owlCarousel(
-			{
-				items:1,
-				loop:true,
-				autoplay:true,
-				nav:false,
-				dots:false,
-				smartSpeed:1200
+			homeSlider.owlCarousel({
+				items: 1,
+				loop: true,
+				autoplay: false,
+				nav: false,
+				dots: false,
+				smartSpeed: 1200
 			});
 
-			if($('.home_slider_prev').length)
-			{
+			if ($('.home_slider_prev').length) {
 				var prev = $('.home_slider_prev');
-				prev.on('click', function()
-				{
+				prev.on('click', function () {
 					homeSlider.trigger('prev.owl.carousel');
 				});
 			}
 
-			if($('.home_slider_next').length)
-			{
+			if ($('.home_slider_next').length) {
 				var next = $('.home_slider_next');
-				next.on('click', function()
-				{
+				next.on('click', function () {
 					homeSlider.trigger('next.owl.carousel');
 				});
 			}
@@ -184,54 +153,48 @@ $(document).ready(function()
 
 	*/
 
-	function initMilestones()
-	{
-		if($('.milestone_counter').length)
-		{
+	function initMilestones() {
+		if ($('.milestone_counter').length) {
 			var milestoneItems = $('.milestone_counter');
 
-	    	milestoneItems.each(function(i)
-	    	{
-	    		var ele = $(this);
-	    		var endValue = ele.data('end-value');
-	    		var eleValue = ele.text();
+			milestoneItems.each(function (i) {
+				var ele = $(this);
+				var endValue = ele.data('end-value');
+				var eleValue = ele.text();
 
-	    		/* Use data-sign-before and data-sign-after to add signs
-	    		infront or behind the counter number */
-	    		var signBefore = "";
-	    		var signAfter = "";
+				/* Use data-sign-before and data-sign-after to add signs
+				infront or behind the counter number */
+				var signBefore = "";
+				var signAfter = "";
 
-	    		if(ele.attr('data-sign-before'))
-	    		{
-	    			signBefore = ele.attr('data-sign-before');
-	    		}
+				if (ele.attr('data-sign-before')) {
+					signBefore = ele.attr('data-sign-before');
+				}
 
-	    		if(ele.attr('data-sign-after'))
-	    		{
-	    			signAfter = ele.attr('data-sign-after');
-	    		}
+				if (ele.attr('data-sign-after')) {
+					signAfter = ele.attr('data-sign-after');
+				}
 
-	    		var milestoneScene = new ScrollMagic.Scene({
-		    		triggerElement: this,
-		    		triggerHook: 'onEnter',
-		    		reverse:false
-		    	})
-		    	.on('start', function()
-		    	{
-		    		var counter = {value:eleValue};
-		    		var counterTween = TweenMax.to(counter, 4,
-		    		{
-		    			value: endValue,
-		    			roundProps:"value", 
-						ease: Circ.easeOut, 
-						onUpdate:function()
-						{
-							document.getElementsByClassName('milestone_counter')[i].innerHTML = signBefore + counter.value + signAfter;
-						}
-		    		});
-		    	})
-			    .addTo(ctrl);
-	    	});
+				var milestoneScene = new ScrollMagic.Scene({
+						triggerElement: this,
+						triggerHook: 'onEnter',
+						reverse: false
+					})
+					.on('start', function () {
+						var counter = {
+							value: eleValue
+						};
+						var counterTween = TweenMax.to(counter, 4, {
+							value: endValue,
+							roundProps: "value",
+							ease: Circ.easeOut,
+							onUpdate: function () {
+								document.getElementsByClassName('milestone_counter')[i].innerHTML = signBefore + counter.value + signAfter;
+							}
+						});
+					})
+					.addTo(ctrl);
+			});
 		}
 	}
 

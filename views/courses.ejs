@@ -230,11 +230,12 @@
 					<!-- Courses Main Content -->
 					<div class="col-lg-8">
 						<div class="courses_search_container">
-							<form action="#" id="courses_search_form"
+							<form action="/contents/courses/1" method="GET" id="courses_search_form"
 								class="courses_search_form d-flex flex-row align-items-center justify-content-start">
-								<input type="search" class="courses_search_input" placeholder="Search Courses"
-									required="required">
-								<select id="courses_search_select" class="courses_search_select courses_search_input">
+								<input type="text" name="search" class="courses_search_input"
+									placeholder="Search Courses" required="required">
+								<select id="courses_search_select" name="category"
+									class="courses_search_select courses_search_input">
 									<option>All Categories</option>
 									<option>Grade 1</option>
 									<option>Grade 2</option>
@@ -245,6 +246,12 @@
 						</div>
 						<div class="courses_container">
 							<div class="row courses_row">
+
+								<div class="col-md-12">
+									<% if(noMatch !== null) { %>
+									<h3><%= noMatch %></h3>
+									<% } %>
+								</div>
 
 								<!-- Course -->
 								<% for(var i = 0; i < contents.length; i++) { %>

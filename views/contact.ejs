@@ -46,8 +46,68 @@
 										</li>
 									</ul>
 									<div class="top_bar_login ml-auto">
-										<div class="login_button"><a href="#">Register or Login</a></div>
+
+										<% if (user) { %>
+
+										<ul class="nav navbar-nav navbar-right ml-auto">
+
+
+											<li class="dropdown">
+												<a href="#" class="dropdown" data-toggle="dropdown"><img
+														src="/assets/img/user.png" class="img-circle" alt="Avatar">
+													<span><%= user.username %></span> <i
+														class="icon-submenu lnr lnr-chevron-down"></i></a>
+												<ul class="dropdown-menu">
+													<li><a href="/users/profile"><i class="lnr lnr-user"></i> <span>My
+																Profile</span></a></li>
+													<li><a href="/users/logout"><i class="lnr lnr-exit"></i>
+															<span>Logout</span></a></li>
+												</ul>
+											</li>
+
+											</li>
+										</ul>
+
+										<% } else { %>
+										<div>
+											<ul class="nav navbar-nav navbar-right ml-auto">
+												<li class="nav-item">
+													<a data-toggle="dropdown" class="dropdown-toggle-split"
+														href="#">Sign In </a>
+													<ul class="dropdown-menu login-form">
+														<li>
+															<% include ./partials/messages %>
+															<form method="POST" action="/users/login">
+																<div class="form-group">
+																	<label>Username</label>
+																	<input name="username" type="text"
+																		class="form-control" required="required">
+																</div>
+																<div class="form-group">
+																	<div class="clearfix">
+																		<label>Password</label>
+
+																	</div>
+
+																	<input name="password" type="password"
+																		class="form-control" required="required">
+																</div>
+																<input type="submit" class="btn btn-primary btn-block"
+																	value="Login" id="btn-primary-submit">
+															</form>
+
+															<div class="register-text"><a href="/users/register"
+																	class="register-here"><small>Dont have
+																		account? register</small></a> </div>
+														</li>
+													</ul>
+												</li>
+
+											</ul>
+										</div>
+										<% } %>
 									</div>
+
 								</div>
 							</div>
 						</div>
